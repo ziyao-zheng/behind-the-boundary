@@ -1,2 +1,2 @@
-# behind-the-boundary.github.io
+# behind-the-boundary
 Study of invisible labour, structural care, and safety in arts and media.
