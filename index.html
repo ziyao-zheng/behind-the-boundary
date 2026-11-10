@@ -661,6 +661,13 @@ main > article > .page-heading > h1 {
   }
 }
 </style>
+<style>
+#workplace-dialogue input:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 4px;
+}
+#dialogue-send:disabled { opacity: .65; cursor: not-allowed; }
+</style>
 </head>
 
 <body>
@@ -689,6 +696,7 @@ main > article > .page-heading > h1 {
         <a href="#compare">Cross-case Analysis</a>
         <a href="#reflection">Reflection</a>
         <a href="#about">About &amp; Sources</a>
+        <a href="#take-action">Take Action</a>
       </nav>
 
       <span class="nav-note">A research publication</span>
@@ -1049,17 +1057,178 @@ main > article > .page-heading > h1 {
       </p>
       <div data-sources></div>
     </section>
-   <section class="case-section" aria-labelledby="academic-supervision">
+
+    <section class="case-section" aria-labelledby="academic-supervision">
       <h2 id="academic-supervision">Academic Supervision</h2>
-      <p>
-        <strong>Dr. Nataleah Hunter-Young</strong> is the academic supervisor for this
-        independent research project at the University of Toronto.
-        I am grateful for her guidance and thoughtful feedback
-        throughout the project.
-      </p>
-   </section>
+      <p> <strong>Dr. Nataleah Hunter-Young </strong> is the academic supervisor for this independent research project at the University of Toronto. I am grateful for her guidance and thoughtful feedback throughout the project.</p>
+    </section>
   </div>
 </section>
+
+<section id="take-action" aria-labelledby="take-action-heading" tabindex="-1">
+  <div class="page-heading">
+    <p class="eyebrow">Take Action</p>
+    <h1 id="take-action-heading">Anonymous Workplace Dialogue</h1>
+    <p class="intro">
+      Invite an organizational representative to reflect on workplace psychological
+      safety. This is an invitation to discuss research, not a complaint or incident report.
+    </p>
+  </div>
+
+  <div class="reading">
+    <form id="workplace-dialogue" class="case-section" method="post" autocomplete="off" novalidate>
+      <p><label for="dialogue-recipient"><strong>Recipient’s professional email address</strong></label>
+        <input id="dialogue-recipient" name="recipient" type="email" required maxlength="254"
+          autocomplete="off" autocapitalize="off" spellcheck="false"
+          aria-describedby="dialogue-recipient-help"
+          style="display:block;width:100%;min-height:48px;font:inherit;color:var(--ink);background:white;border:1px solid #77717f;padding:10px;margin-top:8px">
+        <small id="dialogue-recipient-help">Enter one address at an eligible organization.</small>
+      </p>
+
+      <p><label for="dialogue-topic"><strong>Suggested discussion topic</strong></label>
+        <select id="dialogue-topic" name="topic" style="display:block;margin-top:8px">
+          <option value="psychological-safety">Psychological safety and wellbeing</option>
+          <option value="workplace-support">Access to workplace support</option>
+          <option value="prevention">Prevention of occupational harm</option>
+          <option value="responsibility">Organizational responsibility</option>
+        </select>
+      </p>
+
+      <section class="case-section" aria-labelledby="dialogue-preview-heading">
+        <h2 id="dialogue-preview-heading">Email preview</h2>
+        <p><strong>Subject:</strong> An Invitation to Reflect on Workplace Psychological Safety</p>
+        <p>Hello,</p>
+        <p>Someone has suggested that your organization might benefit from exploring a research resource about workplace psychological safety and institutional responsibility.</p>
+        <p>Behind the Boundary is an independent research project examining how organizations recognize psychological risks, provide workplace protections, and respond to occupational harm.</p>
+        <p>The website offers research and reflective questions that may be useful when considering workplace wellbeing.</p>
+        <p>Explore the project:<br><a href="https://behind-the-boundary.netlify.app/">https://behind-the-boundary.netlify.app/</a></p>
+        <p>This message was sent through Behind the Boundary without requiring the visitor to provide their identity. It does not constitute an allegation against your organization.</p>
+        <p><strong>Suggested discussion topic:</strong> <span id="dialogue-preview-topic">Psychological safety and wellbeing</span></p>
+        <p>The delivered email will include a link for the recipient to opt out of future invitations.</p>
+      </section>
+
+      <section class="case-section" aria-labelledby="dialogue-privacy-heading">
+        <h2 id="dialogue-privacy-heading">Privacy and limits</h2>
+        <p id="dialogue-privacy">The recipient sees the project’s sender address. This form does not ask for your name or email address. Complete anonymity cannot be guaranteed. Hosting and email providers may process technical metadata. The email provider receives the recipient’s address to deliver the message. The project keeps coded identifiers for rate limits and to honour opt-outs.</p>
+        <p><label style="display:flex;align-items:center;gap:12px;min-height:44px">
+          <input id="dialogue-confirm" type="checkbox" required aria-describedby="dialogue-privacy"
+            style="width:20px;height:20px;flex:none;accent-color:var(--accent)">
+          <span>I have reviewed the invitation and understand the privacy limits.</span>
+        </label></p>
+        <p id="dialogue-availability" role="status">Preview only. Email sending is currently unavailable.</p>
+        <p id="dialogue-error" role="alert"></p>
+        <p id="dialogue-success" role="status"></p>
+        <button id="dialogue-send" type="submit" disabled
+          style="min-height:48px;padding:8px 18px;font:inherit;font-weight:bold;color:white;background:var(--accent);border:0">Send Email</button>
+      </section>
+    </form>
+  </div>
+</section>
+
+<script id="dialogue-script">
+(() => {
+  const page = document.getElementById('take-action');
+  const endpoint = '/.netlify/functions/workplace-dialogue';
+  const form = document.getElementById('workplace-dialogue');
+  const recipient = document.getElementById('dialogue-recipient');
+  const topic = document.getElementById('dialogue-topic');
+  const confirm = document.getElementById('dialogue-confirm');
+  const send = document.getElementById('dialogue-send');
+  const availability = document.getElementById('dialogue-availability');
+  const error = document.getElementById('dialogue-error');
+  const success = document.getElementById('dialogue-success');
+  const preview = document.getElementById('dialogue-preview-topic');
+  let enabled = false;
+  let sending = false;
+
+  topic.addEventListener('change', () => {
+    preview.textContent = topic.selectedOptions[0].textContent;
+  });
+  for (const field of [recipient, confirm]) {
+    field.addEventListener('input', () => {
+      field.removeAttribute('aria-invalid');
+      error.textContent = '';
+      success.textContent = '';
+    });
+  }
+
+  async function checkAvailability() {
+    if (!/^https?:$/.test(location.protocol)) return;
+    try {
+      const response = await fetch(endpoint, { cache: 'no-store', signal: AbortSignal.timeout(5000) });
+      if (!response.ok) return;
+      const status = await response.json();
+      if (status.enabled !== true) return;
+      enabled = true;
+      send.disabled = false;
+      availability.textContent = 'Sending is available for eligible recipients.';
+    } catch {
+      // The preview is usable even when the function is absent or unreachable.
+    }
+  }
+
+  form.addEventListener('submit', async event => {
+    event.preventDefault();
+    if (!enabled || sending) return;
+    error.textContent = '';
+    success.textContent = '';
+
+    if (!recipient.validity.valid) {
+      recipient.setAttribute('aria-invalid', 'true');
+      error.textContent = 'Enter one valid professional email address.';
+      recipient.focus();
+      return;
+    }
+    if (!confirm.checked) {
+      confirm.setAttribute('aria-invalid', 'true');
+      error.textContent = 'Confirm that you reviewed the invitation and privacy limits.';
+      confirm.focus();
+      return;
+    }
+
+    sending = true;
+    send.disabled = true;
+    availability.textContent = 'Submitting invitation…';
+    try {
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ recipient: recipient.value.trim(), topic: topic.value, confirmed: true }),
+        signal: AbortSignal.timeout(15000)
+      });
+      const result = await response.json();
+      if (response.status === 202 && result.accepted === true) {
+        success.textContent = 'Your invitation was accepted by the email service for delivery.';
+        recipient.value = '';
+        confirm.checked = false;
+      } else if (result.code === 'domain' || result.code === 'invalid') {
+        recipient.setAttribute('aria-invalid', 'true');
+        error.textContent = result.code === 'domain'
+          ? 'This address is not eligible for invitations.'
+          : 'Check the recipient address and your selections.';
+        recipient.focus();
+      } else if (result.code === 'limited') {
+        error.textContent = 'This invitation cannot be sent right now. It may be limited or the recipient may have opted out.';
+      } else {
+        error.textContent = 'The service could not confirm that the invitation was accepted.';
+      }
+    } catch {
+      error.textContent = 'We could not confirm the result. Please avoid submitting the same invitation again.';
+    } finally {
+      sending = false;
+      send.disabled = !enabled;
+      availability.textContent = '';
+    }
+  });
+
+  // Only check the service when someone opens the Take Action page.
+  function checkOnActionPage() {
+    if (location.hash === '#take-action' && !enabled && !page.hidden) checkAvailability();
+  }
+  window.addEventListener('hashchange', () => queueMicrotask(checkOnActionPage));
+  queueMicrotask(checkOnActionPage);
+})();
+</script>
 
 <!-- CASE PAGES: EDIT THEIR CONTENT IN THE RESEARCH DATA BELOW -->
 <article id="case-tiff" class="section"
