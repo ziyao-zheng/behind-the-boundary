@@ -1306,16 +1306,103 @@ window.BoundaryResearch = {
   // Fields: id, beforeTitle, title, afterTitle, url, doi, type, review.
   // beforeTitle and afterTitle hold the verified Chicago bibliography text
   // surrounding the title, including spaces and punctuation.
-  references: [],
+  references: [
+    {"id":"armstrong","beforeTitle":"Armstrong, Jackie, Laura Evans, Stephen Legari, Ronna Tulgan Ostheimer, Andrew Palamara, and Emily Wiskera. “","title":"Weaving Trauma Awareness into Museum Education","afterTitle":".” Journal of Museum Education 46, no. 4 (2021): 454–66.","type":"Academic research","doi":"10.1080/10598650.2021.1981045"},
+    {"id":"bjork","beforeTitle":"Björkenfeldt, Oscar. “","title":"Addressing Online Harassment in Swedish Journalism: An Institutional Perspective on Management","afterTitle":".” Nordic Journal of Working Life Studies 13, no. 4 (2023): 89–110.","type":"Academic research","doi":"10.18291/njwls.141842"},
+    {"id":"cleaners","beforeTitle":"Block, Hans, and Moritz Riesewieck, directors. ","title":"The Cleaners","afterTitle":". Documentary film, 2018.","type":"Documentary film","standalone":true,"review":"Confirm the full citation and a direct source link."},
+    {"id":"hunter","beforeTitle":"Hunter-Young, Nataleah. “","title":"Cameron Granger x How to Disappear Completely (2020)","afterTitle":".” In Brutal Aesthetics and the Visual Economy of Digital Black Death. PhD diss., Toronto Metropolitan University, 2022.","type":"Academic research","doi":"10.32920/26046664"},
+    {"id":"newton","beforeTitle":"Newton, Casey. “","title":"The Trauma Floor: The Secret Lives of Facebook Moderators in America","afterTitle":".” The Verge, February 25, 2019.","type":"Investigative journalism","url":"https://www.theverge.com/2019/2/25/18229714/cognizant-facebook-content-moderator-interviews-trauma-working-conditions-arizona"},
+    {"id":"randazzo","beforeTitle":"Randazzo, Casey, Carol F. Scott, Rosanna Bellini, Tawfiq Ammari, Michael Ann DeVito, Bryan Semaan, and Nazanin Andalibi. “","title":"Trauma-Informed Design: A Collaborative Approach to Building Safer Online Spaces","afterTitle":".” CSCW ’23 Companion, 2023.","type":"Academic research","doi":"10.1145/3584931.3611277"},
+    {"id":"regehr","beforeTitle":"Regehr, Cheryl, Wendy Duff, Jessica Ho, Christa Sato, and Henria Aton. “","title":"Emotional Responses in Archival Work","afterTitle":".” Archival Science 23, no. 4 (2023): 545–68.","type":"Academic research","doi":"10.1007/s10502-023-09419-5"},
+    {"id":"roberts","beforeTitle":"Roberts, Sarah T. “","title":"Understanding Commercial Content Moderation","afterTitle":".” In Behind the Screen: Content Moderation in the Shadows of Social Media. Yale University Press, 2019.","type":"Academic research","review":"Confirm chapter pages and a publisher link."},
+    {"id":"scott","beforeTitle":"Scott, Carol F., Gabriela Marcu, Riana Elyse Anderson, Mark W. Newman, and Sarita Schoenebeck. “","title":"Trauma-Informed Social Media: Towards Solutions for Reducing and Healing Online Harm","afterTitle":".” CHI ’23, 2023.","type":"Academic research","doi":"10.1145/3544548.3581512"},
+    {"id":"toffoletti","beforeTitle":"Toffoletti, Kim, Caitlin McGrane, and Sarah Reddan. “","title":"Not Just Trolls: The Experiences and Effects of Online Harm on Elite Women’s Sport Athletes","afterTitle":".” Communication & Sport, published online January 14, 2026.","type":"Academic research","doi":"10.1177/21674795251412781"},
+    {"id":"wright","beforeTitle":"Wright, Kirsten, and Nicola Laurent. “","title":"Safety, Collaboration, and Empowerment: Trauma-Informed Archival Practice","afterTitle":".” Archivaria 91 (2021).","type":"Academic research","doi":"10.7202/1078465ar","review":"Confirm the page range."},
+    {"id":"thr","beforeTitle":"The Hollywood Reporter. “","title":"The Threats That Led the Toronto Film Festival to Pull ‘Russians at War’","afterTitle":".” 2024.","type":"News reporting","review":"Confirm the full citation and a direct source link."},
+    {"id":"tiff-careers","beforeTitle":"Toronto International Film Festival. “","title":"Careers and Life at TIFF","afterTitle":".”","type":"Organizational statement","review":"Confirm the full citation and a direct source link."},
+    {"id":"diversio","beforeTitle":"Diversio. “","title":"Toronto International Film Festival: Workplace Wellness and Inclusion","afterTitle":".” 2024.","type":"Organizational case study","review":"Confirm the full citation and a direct source link."},
+    {"id":"indeed","beforeTitle":"Indeed. “","title":"Toronto International Film Festival Employee Reviews","afterTitle":".”","type":"Informal account","review":"Confirm the full citation and a direct source link."},
+    {"id":"silver","beforeTitle":"Silver, Ellen. “","title":"Hard Questions: Who Reviews Objectionable Content on Facebook — And Is the Company Doing Enough to Support Them?","afterTitle":"” Facebook, July 26, 2018.","type":"Organizational statement","url":"https://about.fb.com/news/2018/07/hard-questions-content-reviewers/"},
+    {"id":"fb-commit","beforeTitle":"Facebook. “","title":"Our Commitment to Our Content Reviewers","afterTitle":".” 2019.","type":"Organizational statement","review":"Confirm the full citation and a direct source link."},
+    {"id":"audit","beforeTitle":"Meta. ","title":"Progress on Civil Rights Audit Commitments","afterTitle":". 2021.","type":"Organizational statement","standalone":true,"review":"Confirm the full citation and a direct source link."},
+    {"id":"euronews","beforeTitle":"Euronews/Reuters. “","title":"Content Moderator in Kenya Sues Meta over Working Conditions","afterTitle":".” 2022.","type":"News reporting","review":"Confirm the full citation and a direct source link."},
+    {"id":"guardian-kenya","beforeTitle":"The Guardian. “","title":"More Than 140 Kenya Facebook Moderators Diagnosed with Severe PTSD","afterTitle":".” 2024.","type":"News reporting","review":"Confirm the full citation and a direct source link."},
+    {"id":"guardian-ghana","beforeTitle":"The Guardian. “","title":"Meta Faces Ghana Lawsuits over Impact of Extreme Content on Moderators","afterTitle":".” 2025.","type":"News reporting","review":"Confirm the full citation and a direct source link."},
+    {"id":"ap","beforeTitle":"Associated Press. “","title":"Former Meta Contractor Sama to Lay Off More Than 1,000 Workers in Kenya","afterTitle":".” 2026.","type":"News reporting","review":"Confirm the full citation and a direct source link."},
+    {"id":"tyee","beforeTitle":"The Tyee. “","title":"If TikTok News Is the Future, Rachel Gilmore Is Living It","afterTitle":".” 2024.","type":"News reporting","review":"Confirm the full citation and a direct source link."},
+    {"id":"iwmf","beforeTitle":"International Women's Media Foundation. ","title":"A Guide to Protecting Newsrooms and Journalists Against Online Violence","afterTitle":". 2024.","type":"Professional guidance","standalone":true,"review":"Confirm the full citation and a direct source link."},
+    {"id":"cbc","beforeTitle":"CBC News. “","title":"Online Harassment against Female Journalists Is a Growing Problem, UN Report Suggests","afterTitle":".” 2026.","type":"News reporting","review":"Confirm the full citation and a direct source link."},
+    {"id":"ica","beforeTitle":"International Council on Archives. ","title":"Understanding the International Landscape of Trauma and Archives","afterTitle":". 2023.","type":"Professional guidance","standalone":true,"review":"Confirm the full citation and a direct source link."},
+    {"id":"reddit","beforeTitle":"Reddit, r/Archivists. “","title":"Trauma-Informed Archiving and Archivists","afterTitle":".” 2024.","type":"Informal account","review":"Confirm the full citation and a direct source link."},
+    {"id":"archivaria","beforeTitle":"Archivaria. “","title":"Canadian Archival Institutions and Trauma-Informed Practice","afterTitle":".” 2026.","type":"Academic research","review":"Confirm the full citation and a direct source link."},
+    {"id":"golding","beforeTitle":"Golding, Sarah E., et al. “","title":"Exploring the Psychological Health of Emergency Dispatch Centre Operatives: A Systematic Review and Narrative Synthesis","afterTitle":".” PeerJ 5 (2017): e3735.","type":"Academic research","doi":"10.7717/peerj.3735"},
+    {"id":"skomo","beforeTitle":"Skomorovskaia, Anna. “","title":"The Hidden Trauma of 911 Dispatchers","afterTitle":".”","type":"News reporting","review":"Confirm the full citation and a direct source link."},
+    {"id":"doj","beforeTitle":"Department of Justice Canada. ","title":"Interviews with Human Trafficking Investigators and Support Workers","afterTitle":". 2023.","type":"Organizational report","standalone":true,"review":"Confirm the full citation and a direct source link."},
+    {"id":"mitchell","beforeTitle":"Mitchell et al. “","title":"The Mental Health of Officials Who Regularly Examine Child Sexual Abuse Material","afterTitle":".” 2023.","type":"Academic research","review":"Confirm the full citation and a direct source link."},
+    {"id":"wapo","beforeTitle":"The Washington Post. “","title":"Caitlin Clark and Angel Reese Are Keeping Calm amid the Chaos","afterTitle":".” 2024.","type":"News reporting","review":"Confirm the full citation and a direct source link."},
+    {"id":"reuters","beforeTitle":"Reuters. “","title":"WNBA Announces Program to Combat Growing Harassment in Women’s Sport","afterTitle":".” 2025.","type":"News reporting","review":"Confirm the full citation and a direct source link."},
+    {"id":"sportsnet","beforeTitle":"Sportsnet. “","title":"WNBA Commissioner and Union Discuss Protecting Players from Online Harassment","afterTitle":".” 2026.","type":"News reporting","review":"Confirm the full citation and a direct source link."}
+  ],
   sourceGroups: {
-    academic: [],
-    tiff: [],
-    meta: [],
-    journalism: [],
-    archives: [],
-    dispatchers: [],
-    trafficking: [],
-    wnba: []
+    "academic": [
+      "armstrong",
+      "bjork",
+      "hunter",
+      "randazzo",
+      "regehr",
+      "roberts",
+      "scott",
+      "toffoletti",
+      "wright"
+    ],
+    "tiff": [
+      "thr",
+      "tiff-careers",
+      "diversio",
+      "indeed"
+    ],
+    "meta": [
+      "cleaners",
+      "newton",
+      "randazzo",
+      "roberts",
+      "scott",
+      "silver",
+      "fb-commit",
+      "audit",
+      "euronews",
+      "guardian-kenya",
+      "guardian-ghana",
+      "ap"
+    ],
+    "journalism": [
+      "bjork",
+      "tyee",
+      "iwmf",
+      "cbc"
+    ],
+    "archives": [
+      "armstrong",
+      "regehr",
+      "wright",
+      "ica",
+      "reddit",
+      "archivaria"
+    ],
+    "dispatchers": [
+      "golding",
+      "skomo"
+    ],
+    "trafficking": [
+      "doj",
+      "mitchell"
+    ],
+    "wnba": [
+      "toffoletti",
+      "wapo",
+      "reuters",
+      "sportsnet"
+    ]
   }
 };
 </script>
@@ -1414,12 +1501,15 @@ window.BoundaryResearch = {
       }
 
       const doi = ref.doi ? `https://doi.org/${ref.doi}` : null;
+      const title = sourceLink(ref.title || '[Title missing]', ref.url || doi);
+      const titleNode = ref.standalone ? make('cite') : title;
+      if (ref.standalone) titleNode.append(title);
       item.append(
         document.createTextNode(ref.beforeTitle || ''),
-        sourceLink(ref.title || '[Title missing]', ref.url || doi),
+        titleNode,
         document.createTextNode(ref.afterTitle || '')
       );
-      if (doi) item.append(' ', sourceLink(`DOI: ${ref.doi}`, doi));
+      if (doi) item.append(document.createTextNode(' '), sourceLink(`DOI: ${ref.doi}`, doi));
       if (ref.review || !ref.title) {
         item.append(make('p', `Citation needs review: ${ref.review || 'title missing'}`, 'pending'));
       }
@@ -1612,7 +1702,8 @@ window.BoundaryResearch = {
       section.append(make('h2', title));
 
       if (title === 'References') {
-        references(section, caseStudy.references);
+        const group = { moderators: 'meta', investigators: 'trafficking' }[id] || id;
+        references(section, [...new Set([...(caseStudy.references || []), ...(data.sourceGroups[group] || [])])]);
       } else {
         const placeholder = title === 'Organizational Responses'
           ? '[Organizational response: evidence pending]'
@@ -1664,7 +1755,10 @@ window.BoundaryResearch = {
   const bibliography = document.querySelector('[data-sources]');
   const academic = make('section');
   academic.append(make('h3', 'Academic Literature & Conceptual Frameworks'));
-  references(academic, data.sourceGroups.academic);
+  const academicGroup = make('details');
+  academicGroup.append(make('summary', 'Browse academic sources'));
+  references(academicGroup, data.sourceGroups.academic);
+  academic.append(academicGroup);
   bibliography.append(academic);
 
   const evidenceSources = make('section');
