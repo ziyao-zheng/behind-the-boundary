@@ -1072,12 +1072,7 @@ main > article > .page-heading > h1 {
     </section>
 
     <section class="case-section">
-      <h2>Sources &amp; references</h2>
-      <p>
-        Academic references, news reports, institutional statements,
-        and other sources will be recorded with links and notes
-        about their role and limitations.
-      </p>
+      <h2>References &amp; Sources</h2>
       <div data-sources></div>
     </section>
 
@@ -1307,7 +1302,21 @@ window.BoundaryResearch = {
     }
   ],
 
-  references: []
+  // Store each source here once. Use its ID in groups and case references.
+  // Fields: id, beforeTitle, title, afterTitle, url, doi, type, review.
+  // beforeTitle and afterTitle hold the verified Chicago bibliography text
+  // surrounding the title, including spaces and punctuation.
+  references: [],
+  sourceGroups: {
+    academic: [],
+    tiff: [],
+    meta: [],
+    journalism: [],
+    archives: [],
+    dispatchers: [],
+    trafficking: [],
+    wnba: []
+  }
 };
 </script>
 
@@ -1364,7 +1373,25 @@ window.BoundaryResearch = {
     }
   });
 
-  // Reference lists
+  const sourceById = new Map(data.references.map(source => [source.id, source]));
+
+  function sourceLink(title, href) {
+    try {
+      const url = new URL(href);
+      if (url.protocol === 'https:' || url.protocol === 'http:') {
+        const anchor = link(title, url.href);
+        anchor.target = '_blank';
+        anchor.rel = 'noopener noreferrer';
+        anchor.setAttribute('aria-label', `${title} (opens in a new tab)`);
+        return anchor;
+      }
+    } catch {
+      // Leave a title readable when its URL is missing or invalid.
+    }
+    return make('span', title);
+  }
+
+  // Reference lists accept canonical IDs and existing inline records.
   function references(parent, refs) {
     if (!refs?.length) {
       parent.append(make(
@@ -1377,21 +1404,25 @@ window.BoundaryResearch = {
 
     const list = make('ol', '', 'reference-list');
 
-    refs.forEach(ref => {
+    refs.forEach(entry => {
+      const ref = typeof entry === 'string' ? sourceById.get(entry) : entry;
       const item = make('li');
-      let url;
-
-      try {
-        url = new URL(ref.url);
-      } catch {
-        url = null;
+      if (!ref) {
+        item.textContent = 'Citation needs review: source record is missing.';
+        list.append(item);
+        return;
       }
 
+      const doi = ref.doi ? `https://doi.org/${ref.doi}` : null;
       item.append(
-        url?.protocol === 'https:'
-          ? link(ref.title, url.href)
-          : make('span', ref.title)
+        document.createTextNode(ref.beforeTitle || ''),
+        sourceLink(ref.title || '[Title missing]', ref.url || doi),
+        document.createTextNode(ref.afterTitle || '')
       );
+      if (doi) item.append(' ', sourceLink(`DOI: ${ref.doi}`, doi));
+      if (ref.review || !ref.title) {
+        item.append(make('p', `Citation needs review: ${ref.review || 'title missing'}`, 'pending'));
+      }
 
       if (ref.type || ref.note) {
         item.append(make(
@@ -1630,10 +1661,29 @@ window.BoundaryResearch = {
     caseRoot.append(layout);
   }
 
-  references(
-    document.querySelector('[data-sources]'),
-    data.references
-  );
+  const bibliography = document.querySelector('[data-sources]');
+  const academic = make('section');
+  academic.append(make('h3', 'Academic Literature & Conceptual Frameworks'));
+  references(academic, data.sourceGroups.academic);
+  bibliography.append(academic);
+
+  const evidenceSources = make('section');
+  evidenceSources.append(make('h3', 'Case Studies & Documentary Evidence'));
+  for (const [key, title] of [
+    ['tiff', 'TIFF / Festival Programming'],
+    ['meta', 'Meta / Content Moderation'],
+    ['journalism', 'Journalism'],
+    ['archives', 'Archival Work'],
+    ['dispatchers', 'Emergency Dispatchers'],
+    ['trafficking', 'Human Trafficking Investigators'],
+    ['wnba', 'WNBA / Professional Sports']
+  ]) {
+    const group = make('details');
+    group.append(make('summary', title));
+    references(group, data.sourceGroups[key]);
+    evidenceSources.append(group);
+  }
+  bibliography.append(evidenceSources);
 
   // Separate page views in one HTML file.
   // URL links and browser Back/Forward remain functional.
