@@ -534,7 +534,9 @@ select {
 }
 
 .case-section h2 { font-size: 28px; }
-.reference-list li { margin: 16px 0; }
+.reference-list { padding-inline-start: 1.5rem; }
+.reference-list li { margin: 16px 0; overflow-wrap: anywhere; }
+.reference-citation { padding-inline-start: 1.5rem; text-indent: -1.5rem; margin-bottom: .4rem; }
 
 main > article > .page-heading > h1 {
   font-size: clamp(38px, 5vw, 68px);
@@ -1307,46 +1309,48 @@ window.BoundaryResearch = {
   // beforeTitle and afterTitle hold the verified Chicago bibliography text
   // surrounding the title, including spaces and punctuation.
   references: [
-    {"id":"armstrong","beforeTitle":"Armstrong, Jackie, Laura Evans, Stephen Legari, Ronna Tulgan Ostheimer, Andrew Palamara, and Emily Wiskera. “","title":"Weaving Trauma Awareness into Museum Education","afterTitle":".” Journal of Museum Education 46, no. 4 (2021): 454–66.","type":"Academic research","doi":"10.1080/10598650.2021.1981045"},
-    {"id":"bjork","beforeTitle":"Björkenfeldt, Oscar. “","title":"Addressing Online Harassment in Swedish Journalism: An Institutional Perspective on Management","afterTitle":".” Nordic Journal of Working Life Studies 13, no. 4 (2023): 89–110.","type":"Academic research","doi":"10.18291/njwls.141842"},
+    {"id":"armstrong","beforeTitle":"Armstrong, Jackie, Laura Evans, Stephen Legari, Ronna Tulgan Ostheimer, Andrew Palamara, and Emily Wiskera. “","title":"Weaving Trauma Awareness into Museum Education","afterTitle":".” Journal of Museum Education 46, no. 4 (2021): 454–66.","type":"Academic research","doi":"10.1080/10598650.2021.1981045","publication":"Journal of Museum Education"},
+    {"id":"bjork","beforeTitle":"Björkenfeldt, Oscar. “","title":"Addressing Online Harassment in Swedish Journalism: An Institutional Perspective on Management","afterTitle":".” Nordic Journal of Working Life Studies 13, no. 4 (2023): 89–110.","type":"Academic research","doi":"10.18291/njwls.141842","publication":"Nordic Journal of Working Life Studies"},
     {"id":"cleaners","beforeTitle":"Block, Hans, and Moritz Riesewieck, directors. ","title":"The Cleaners","afterTitle":". Documentary film, 2018.","type":"Documentary film","standalone":true,"review":"Confirm the full citation and a direct source link."},
-    {"id":"hunter","beforeTitle":"Hunter-Young, Nataleah. “","title":"Cameron Granger x How to Disappear Completely (2020)","afterTitle":".” In Brutal Aesthetics and the Visual Economy of Digital Black Death. PhD diss., Toronto Metropolitan University, 2022.","type":"Academic research","doi":"10.32920/26046664"},
-    {"id":"newton","beforeTitle":"Newton, Casey. “","title":"The Trauma Floor: The Secret Lives of Facebook Moderators in America","afterTitle":".” The Verge, February 25, 2019.","type":"Investigative journalism","url":"https://www.theverge.com/2019/2/25/18229714/cognizant-facebook-content-moderator-interviews-trauma-working-conditions-arizona"},
-    {"id":"randazzo","beforeTitle":"Randazzo, Casey, Carol F. Scott, Rosanna Bellini, Tawfiq Ammari, Michael Ann DeVito, Bryan Semaan, and Nazanin Andalibi. “","title":"Trauma-Informed Design: A Collaborative Approach to Building Safer Online Spaces","afterTitle":".” CSCW ’23 Companion, 2023.","type":"Academic research","doi":"10.1145/3584931.3611277"},
-    {"id":"regehr","beforeTitle":"Regehr, Cheryl, Wendy Duff, Jessica Ho, Christa Sato, and Henria Aton. “","title":"Emotional Responses in Archival Work","afterTitle":".” Archival Science 23, no. 4 (2023): 545–68.","type":"Academic research","doi":"10.1007/s10502-023-09419-5"},
-    {"id":"roberts","beforeTitle":"Roberts, Sarah T. “","title":"Understanding Commercial Content Moderation","afterTitle":".” In Behind the Screen: Content Moderation in the Shadows of Social Media. Yale University Press, 2019.","type":"Academic research","review":"Confirm chapter pages and a publisher link."},
-    {"id":"scott","beforeTitle":"Scott, Carol F., Gabriela Marcu, Riana Elyse Anderson, Mark W. Newman, and Sarita Schoenebeck. “","title":"Trauma-Informed Social Media: Towards Solutions for Reducing and Healing Online Harm","afterTitle":".” CHI ’23, 2023.","type":"Academic research","doi":"10.1145/3544548.3581512"},
-    {"id":"toffoletti","beforeTitle":"Toffoletti, Kim, Caitlin McGrane, and Sarah Reddan. “","title":"Not Just Trolls: The Experiences and Effects of Online Harm on Elite Women’s Sport Athletes","afterTitle":".” Communication & Sport, published online January 14, 2026.","type":"Academic research","doi":"10.1177/21674795251412781"},
-    {"id":"wright","beforeTitle":"Wright, Kirsten, and Nicola Laurent. “","title":"Safety, Collaboration, and Empowerment: Trauma-Informed Archival Practice","afterTitle":".” Archivaria 91 (2021).","type":"Academic research","doi":"10.7202/1078465ar","review":"Confirm the page range."},
-    {"id":"thr","beforeTitle":"The Hollywood Reporter. “","title":"The Threats That Led the Toronto Film Festival to Pull ‘Russians at War’","afterTitle":".” 2024.","type":"News reporting","review":"Confirm the full citation and a direct source link."},
-    {"id":"tiff-careers","beforeTitle":"Toronto International Film Festival. “","title":"Careers and Life at TIFF","afterTitle":".”","type":"Organizational statement","review":"Confirm the full citation and a direct source link."},
-    {"id":"diversio","beforeTitle":"Diversio. “","title":"Toronto International Film Festival: Workplace Wellness and Inclusion","afterTitle":".” 2024.","type":"Organizational case study","review":"Confirm the full citation and a direct source link."},
-    {"id":"indeed","beforeTitle":"Indeed. “","title":"Toronto International Film Festival Employee Reviews","afterTitle":".”","type":"Informal account","review":"Confirm the full citation and a direct source link."},
+    {"id":"hunter","beforeTitle":"Hunter-Young, Nataleah. “","title":"Cameron Granger x How to Disappear Completely (2020)","afterTitle":".” In Brutal Aesthetics and the Visual Economy of Digital Black Death. PhD diss., Toronto Metropolitan University, 2022.","type":"Academic research","doi":"10.32920/26046664","publication":"Brutal Aesthetics and the Visual Economy of Digital Black Death"},
+    {"id":"newton","beforeTitle":"Newton, Casey. “","title":"The Trauma Floor: The Secret Lives of Facebook Moderators in America","afterTitle":".” The Verge, February 25, 2019.","type":"Investigative journalism","url":"https://www.theverge.com/2019/2/25/18229714/cognizant-facebook-content-moderator-interviews-trauma-working-conditions-arizona","publication":"The Verge"},
+    {"id":"randazzo","beforeTitle":"Randazzo, Casey, Carol F. Scott, Rosanna Bellini, Tawfiq Ammari, Michael Ann DeVito, Bryan Semaan, and Nazanin Andalibi. “","title":"Trauma-Informed Design: A Collaborative Approach to Building Safer Online Spaces","afterTitle":".” In CSCW ’23 Companion, 2023.","type":"Academic research","doi":"10.1145/3584931.3611277","publication":"CSCW ’23 Companion"},
+    {"id":"regehr","beforeTitle":"Regehr, Cheryl, Wendy Duff, Jessica Ho, Christa Sato, and Henria Aton. “","title":"Emotional Responses in Archival Work","afterTitle":".” Archival Science 23, no. 4 (2023): 545–68.","type":"Academic research","doi":"10.1007/s10502-023-09419-5","publication":"Archival Science"},
+    {"id":"roberts","beforeTitle":"Roberts, Sarah T. “","title":"Understanding Commercial Content Moderation","afterTitle":".” In Behind the Screen: Content Moderation in the Shadows of Social Media. New Haven, CT: Yale University Press, 2019.","type":"Academic research","review":"Confirm chapter pages and a publisher link.","publication":"Behind the Screen: Content Moderation in the Shadows of Social Media"},
+    {"id":"scott","beforeTitle":"Scott, Carol F., Gabriela Marcu, Riana Elyse Anderson, Mark W. Newman, and Sarita Schoenebeck. “","title":"Trauma-Informed Social Media: Towards Solutions for Reducing and Healing Online Harm","afterTitle":".” In Proceedings of the 2023 CHI Conference on Human Factors in Computing Systems, 2023.","type":"Academic research","doi":"10.1145/3544548.3581512","publication":"Proceedings of the 2023 CHI Conference on Human Factors in Computing Systems"},
+    {"id":"toffoletti","beforeTitle":"Toffoletti, Kim, Caitlin McGrane, and Sarah Reddan. “","title":"Not Just Trolls: The Experiences and Effects of Online Harm on Elite Women’s Sport Athletes","afterTitle":".” Communication & Sport, published online January 14, 2026.","type":"Academic research","doi":"10.1177/21674795251412781","publication":"Communication & Sport"},
+    {"id":"wright","beforeTitle":"Wright, Kirsten, and Nicola Laurent. “","title":"Safety, Collaboration, and Empowerment: Trauma-Informed Archival Practice","afterTitle":".” Archivaria 91 (2021).","type":"Academic research","doi":"10.7202/1078465ar","review":"Confirm the page range.","publication":"Archivaria"},
+    {"id":"thr","beforeTitle":"The Hollywood Reporter. “","title":"The Threats That Led the Toronto Film Festival to Pull ‘Russians at War’","afterTitle":".” 2024.","type":"News reporting","review":"Verify the full citation against the linked source.","url":"https://www.hollywoodreporter.com/movies/movie-news/2024-tiff-toronto-film-festival-russians-at-war-1236005452/"},
+    {"id":"tiff-careers","beforeTitle":"Toronto International Film Festival. “","title":"Careers and Life at TIFF","afterTitle":".”","type":"Organizational statement","review":"Add the access date.","url":"https://tiff.net/careers?tab=lifeattiff"},
+    {"id":"diversio","beforeTitle":"Diversio. “","title":"Toronto International Film Festival: Workplace Wellness and Inclusion","afterTitle":".” 2024.","type":"Organizational case study","review":"Verify the full citation against the linked source.","url":"https://diversio.com/toronto-international-film-festival-workplace-wellness-and-inclusion/"},
+    {"id":"indeed","beforeTitle":"Indeed. “","title":"Toronto International Film Festival Employee Reviews","afterTitle":".”","type":"Informal account","review":"Add the access date.","url":"https://ca.indeed.com/cmp/Toronto-International-Film-Festival/reviews?fcountry=CA&ftopic=jobsecadv"},
     {"id":"silver","beforeTitle":"Silver, Ellen. “","title":"Hard Questions: Who Reviews Objectionable Content on Facebook — And Is the Company Doing Enough to Support Them?","afterTitle":"” Facebook, July 26, 2018.","type":"Organizational statement","url":"https://about.fb.com/news/2018/07/hard-questions-content-reviewers/"},
-    {"id":"fb-commit","beforeTitle":"Facebook. “","title":"Our Commitment to Our Content Reviewers","afterTitle":".” 2019.","type":"Organizational statement","review":"Confirm the full citation and a direct source link."},
-    {"id":"audit","beforeTitle":"Meta. ","title":"Progress on Civil Rights Audit Commitments","afterTitle":". 2021.","type":"Organizational statement","standalone":true,"review":"Confirm the full citation and a direct source link."},
-    {"id":"euronews","beforeTitle":"Euronews/Reuters. “","title":"Content Moderator in Kenya Sues Meta over Working Conditions","afterTitle":".” 2022.","type":"News reporting","review":"Confirm the full citation and a direct source link."},
-    {"id":"guardian-kenya","beforeTitle":"The Guardian. “","title":"More Than 140 Kenya Facebook Moderators Diagnosed with Severe PTSD","afterTitle":".” 2024.","type":"News reporting","review":"Confirm the full citation and a direct source link."},
-    {"id":"guardian-ghana","beforeTitle":"The Guardian. “","title":"Meta Faces Ghana Lawsuits over Impact of Extreme Content on Moderators","afterTitle":".” 2025.","type":"News reporting","review":"Confirm the full citation and a direct source link."},
-    {"id":"ap","beforeTitle":"Associated Press. “","title":"Former Meta Contractor Sama to Lay Off More Than 1,000 Workers in Kenya","afterTitle":".” 2026.","type":"News reporting","review":"Confirm the full citation and a direct source link."},
-    {"id":"tyee","beforeTitle":"The Tyee. “","title":"If TikTok News Is the Future, Rachel Gilmore Is Living It","afterTitle":".” 2024.","type":"News reporting","review":"Confirm the full citation and a direct source link."},
-    {"id":"iwmf","beforeTitle":"International Women's Media Foundation. ","title":"A Guide to Protecting Newsrooms and Journalists Against Online Violence","afterTitle":". 2024.","type":"Professional guidance","standalone":true,"review":"Confirm the full citation and a direct source link."},
-    {"id":"cbc","beforeTitle":"CBC News. “","title":"Online Harassment against Female Journalists Is a Growing Problem, UN Report Suggests","afterTitle":".” 2026.","type":"News reporting","review":"Confirm the full citation and a direct source link."},
-    {"id":"ica","beforeTitle":"International Council on Archives. ","title":"Understanding the International Landscape of Trauma and Archives","afterTitle":". 2023.","type":"Professional guidance","standalone":true,"review":"Confirm the full citation and a direct source link."},
-    {"id":"reddit","beforeTitle":"Reddit, r/Archivists. “","title":"Trauma-Informed Archiving and Archivists","afterTitle":".” 2024.","type":"Informal account","review":"Confirm the full citation and a direct source link."},
-    {"id":"archivaria","beforeTitle":"Archivaria. “","title":"Canadian Archival Institutions and Trauma-Informed Practice","afterTitle":".” 2026.","type":"Academic research","review":"Confirm the full citation and a direct source link."},
-    {"id":"golding","beforeTitle":"Golding, Sarah E., et al. “","title":"Exploring the Psychological Health of Emergency Dispatch Centre Operatives: A Systematic Review and Narrative Synthesis","afterTitle":".” PeerJ 5 (2017): e3735.","type":"Academic research","doi":"10.7717/peerj.3735"},
-    {"id":"skomo","beforeTitle":"Skomorovskaia, Anna. “","title":"The Hidden Trauma of 911 Dispatchers","afterTitle":".”","type":"News reporting","review":"Confirm the full citation and a direct source link."},
-    {"id":"doj","beforeTitle":"Department of Justice Canada. ","title":"Interviews with Human Trafficking Investigators and Support Workers","afterTitle":". 2023.","type":"Organizational report","standalone":true,"review":"Confirm the full citation and a direct source link."},
-    {"id":"mitchell","beforeTitle":"Mitchell et al. “","title":"The Mental Health of Officials Who Regularly Examine Child Sexual Abuse Material","afterTitle":".” 2023.","type":"Academic research","review":"Confirm the full citation and a direct source link."},
-    {"id":"wapo","beforeTitle":"The Washington Post. “","title":"Caitlin Clark and Angel Reese Are Keeping Calm amid the Chaos","afterTitle":".” 2024.","type":"News reporting","review":"Confirm the full citation and a direct source link."},
-    {"id":"reuters","beforeTitle":"Reuters. “","title":"WNBA Announces Program to Combat Growing Harassment in Women’s Sport","afterTitle":".” 2025.","type":"News reporting","review":"Confirm the full citation and a direct source link."},
-    {"id":"sportsnet","beforeTitle":"Sportsnet. “","title":"WNBA Commissioner and Union Discuss Protecting Players from Online Harassment","afterTitle":".” 2026.","type":"News reporting","review":"Confirm the full citation and a direct source link."}
+    {"id":"fb-commit","beforeTitle":"Facebook. “","title":"Our Commitment to Our Content Reviewers","afterTitle":".” February 2019.","type":"Organizational statement","review":"Verify the full citation against the linked source.","url":"https://about.fb.com/news/2019/02/commitment-to-content-reviewers/"},
+    {"id":"audit","beforeTitle":"Meta. ","title":"Progress on Civil Rights Audit Commitments","afterTitle":". 2021.","type":"Organizational statement","standalone":true,"review":"Verify the full citation against the linked source.","url":"https://about.fb.com/wp-content/uploads/2021/11/Metas-Progress-on-Civil-Rights-Audit-Commitments.pdf"},
+    {"id":"euronews","beforeTitle":"Reuters. “","title":"Content Moderator in Kenya Sues Meta over Working Conditions","afterTitle":".” Republished by Euronews, May 10, 2022.","type":"News reporting","review":"Verify the full citation against the linked source.","url":"https://www.euronews.com/next/2022/05/10/meta-kenya","publication":"Euronews"},
+    {"id":"guardian-kenya","beforeTitle":"The Guardian. “","title":"More Than 140 Kenya Facebook Moderators Diagnosed with Severe PTSD","afterTitle":".” December 18, 2024.","type":"News reporting","review":"Verify the full citation against the linked source.","url":"https://www.theguardian.com/media/2024/dec/18/kenya-facebook-moderators-sue-after-diagnoses-of-severe-ptsd"},
+    {"id":"guardian-ghana","beforeTitle":"The Guardian. “","title":"Meta Faces Ghana Lawsuits over Impact of Extreme Content on Moderators","afterTitle":".” April 27, 2025.","type":"News reporting","review":"Verify the full citation against the linked source.","url":"https://www.theguardian.com/technology/2025/apr/27/meta-faces-ghana-lawsuits-over-impact-of-extreme-content-on-moderators"},
+    {"id":"ap","beforeTitle":"Associated Press. “","title":"Former Meta Contractor Sama to Lay Off More Than 1,000 Workers in Kenya","afterTitle":".” 2026.","type":"News reporting","review":"Verify the full citation against the linked source.","url":"https://www.seattlepi.com/business/former-meta-contractor-sama-to-lay-off-more-than-a22210206"},
+    {"id":"tyee","beforeTitle":"The Tyee. “","title":"If TikTok News Is the Future, Rachel Gilmore Is Living It","afterTitle":".” November 15, 2024.","type":"News reporting","review":"Verify the full citation against the linked source.","url":"https://thetyee.ca/News/2024/11/15/TikTok-News-Rachel-Gilmore/"},
+    {"id":"iwmf","beforeTitle":"International Women's Media Foundation. ","title":"A Guide to Protecting Newsrooms and Journalists Against Online Violence","afterTitle":". 2024.","type":"Professional guidance","standalone":true,"review":"Verify the full citation against the linked source.","url":"https://www.iwmf.org/newsroom-policy-guide/"},
+    {"id":"cbc","beforeTitle":"CBC News. “","title":"Online Harassment against Female Journalists Is a Growing Problem, UN Report Suggests","afterTitle":".” 2026.","type":"News reporting","review":"Verify the full citation against the linked source.","url":"https://www.cbc.ca/news/world/women-journalists-online-violence-report-9.7183037"},
+    {"id":"ica","beforeTitle":"International Council on Archives. ","title":"Understanding the International Landscape of Trauma and Archives","afterTitle":". 2023.","type":"Professional guidance","standalone":true,"review":"Verify the full citation against the linked source.","url":"https://www.ica.org/resource/understanding-the-international-landscape-of-trauma-and-archives-report/"},
+    {"id":"reddit","beforeTitle":"Reddit, r/Archivists. “","title":"Trauma-Informed Archiving and Archivists","afterTitle":".” 2024.","type":"Informal account","review":"Verify the full citation against the linked source.","url":"https://www.reddit.com/r/Archivists/comments/1gy766o/traumainformed_archiving_and_archivists/"},
+    {"id":"archivaria","beforeTitle":"“","title":"Canadian Archival Institutions and Trauma-Informed Practice","afterTitle":".” Archivaria, 2026.","type":"Academic research","review":"Verify the author, volume, issue, and pages.","url":"https://archivaria.ca/index.php/archivaria/article/view/14089","publication":"Archivaria"},
+    {"id":"golding","beforeTitle":"Golding, Sarah E., et al. “","title":"Exploring the Psychological Health of Emergency Dispatch Centre Operatives: A Systematic Review and Narrative Synthesis","afterTitle":".” PeerJ 5 (2017): e3735.","type":"Academic research","doi":"10.7717/peerj.3735","publication":"PeerJ"},
+    {"id":"skomo","beforeTitle":"Skomorovskaia, Anna. “","title":"The Hidden Trauma of 911 Dispatchers","afterTitle":".” Sky Therapies.","type":"News reporting","review":"Verify the publication date.","url":"https://skytherapies.ca/hidden-trauma-911-dispatchers-ontario/","publication":"Sky Therapies"},
+    {"id":"doj","beforeTitle":"Department of Justice Canada. ","title":"Interviews with Human Trafficking Investigators and Support Workers","afterTitle":". 2023.","type":"Organizational report","standalone":true,"review":"Verify the full citation against the linked source.","url":"https://www.justice.gc.ca/eng/rp-pr/jr/tiprhtc-rptctctp/p10.html"},
+    {"id":"mitchell","beforeTitle":"Mitchell et al. “","title":"The Mental Health of Officials Who Regularly Examine Child Sexual Abuse Material","afterTitle":".” 2023.","type":"Academic research","review":"Verify the full citation against the linked source.","doi":"10.1186/s12888-023-05445-w"},
+    {"id":"wapo","beforeTitle":"The Washington Post. “","title":"Caitlin Clark and Angel Reese Are Keeping Calm amid the Chaos","afterTitle":".” June 8, 2024.","type":"News reporting","review":"Verify the full citation against the linked source.","url":"https://www.washingtonpost.com/sports/2024/06/08/caitlin-clark-angel-reese-wnba-chaos/"},
+    {"id":"reuters","beforeTitle":"Reuters. “","title":"WNBA Announces Program to Combat Growing Harassment in Women’s Sport","afterTitle":".” April 14, 2025.","type":"News reporting","review":"Verify the full citation against the linked source.","url":"https://www.reuters.com/sports/basketball/wnba-announces-program-combat-growing-harassment-womens-sport-2025-04-14/"},
+    {"id":"sportsnet","beforeTitle":"Sportsnet. “","title":"WNBA Commissioner and Union Discuss Protecting Players from Online Harassment","afterTitle":".” 2026.","type":"News reporting","review":"Verify the full citation against the linked source.","url":"https://www.sportsnet.ca/wnba/article/wnba-commissioner-and-union-discuss-protecting-players-from-online-harassment/"}
   ],
   sourceGroups: {
     "academic": [
       "armstrong",
       "bjork",
+      "cleaners",
+      "newton",
       "hunter",
       "randazzo",
       "regehr",
@@ -1491,12 +1495,14 @@ window.BoundaryResearch = {
 
     const list = make('ol', '', 'reference-list');
 
-    refs.forEach(entry => {
-      const ref = typeof entry === 'string' ? sourceById.get(entry) : entry;
+    const sortName = ref => (ref?.beforeTitle || ref?.title || '')
+      .replace(/^[“"\s]+/, '').replace(/^(The|A|An) /i, '');
+    const records = refs.map(entry => typeof entry === 'string' ? sourceById.get(entry) : entry);
+    records.sort((a, b) => sortName(a).localeCompare(sortName(b), 'en') ||
+      (a?.title || '').localeCompare(b?.title || '', 'en'));
+    records.forEach(ref => {
       const item = make('li');
       if (!ref) {
-        item.textContent = 'Citation needs review: source record is missing.';
-        list.append(item);
         return;
       }
 
@@ -1504,15 +1510,21 @@ window.BoundaryResearch = {
       const title = sourceLink(ref.title || '[Title missing]', ref.url || doi);
       const titleNode = ref.standalone ? make('cite') : title;
       if (ref.standalone) titleNode.append(title);
-      item.append(
+      const citation = make('p', '', 'reference-citation');
+      citation.append(
         document.createTextNode(ref.beforeTitle || ''),
-        titleNode,
-        document.createTextNode(ref.afterTitle || '')
+        titleNode
       );
-      if (doi) item.append(document.createTextNode(' '), sourceLink(`DOI: ${ref.doi}`, doi));
-      if (ref.review || !ref.title) {
-        item.append(make('p', `Citation needs review: ${ref.review || 'title missing'}`, 'pending'));
+      const publicationIndex = ref.publication ? ref.afterTitle.indexOf(ref.publication) : -1;
+      if (publicationIndex >= 0) {
+        citation.append(document.createTextNode(ref.afterTitle.slice(0, publicationIndex)),
+          make('cite', ref.publication),
+          document.createTextNode(ref.afterTitle.slice(publicationIndex + ref.publication.length)));
+      } else {
+        citation.append(document.createTextNode(ref.afterTitle || ''));
       }
+      if (doi) citation.append(document.createTextNode(' '), sourceLink(doi, doi));
+      item.append(citation);
 
       if (ref.type || ref.note) {
         item.append(make(
