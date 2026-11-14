@@ -670,6 +670,26 @@ main > article > .page-heading > h1 {
 @media (max-width: 720px) {
   .invitation-layout { grid-template-columns: 1fr; }
 }
+@media (prefers-reduced-motion: no-preference) {
+  nav a, .text-link, .rail-item a, .reference-list a, summary {
+    transition: color 180ms ease, text-decoration-color 180ms ease;
+  }
+  summary:hover, summary:focus-visible { color: var(--accent); }
+  button, .button, select { transition: background-color 180ms ease; }
+  button:hover, .button:hover, select:hover, select:focus-visible {
+    background-color: var(--wash);
+  }
+  .card { transition: transform 180ms ease, border-color 180ms ease; }
+  .card:focus-within { transform: translateY(-2px); border-color: var(--accent); }
+  @media (hover: hover) {
+    .card:hover { transform: translateY(-2px); border-color: var(--accent); }
+  }
+  details[open] > :not(summary) { animation: disclosure-arrive 180ms ease-out; }
+  @keyframes disclosure-arrive {
+    from { opacity: .65; }
+    to { opacity: 1; }
+  }
+}
 </style>
 </head>
 
@@ -1622,6 +1642,53 @@ window.BoundaryResearch = {
   ];
 
   let currentPage;
+  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  const revealed = new WeakSet();
+  const activeMotion = new Set();
+
+  function animateArrival(element, distance, duration, delay = 0) {
+    if (reducedMotion.matches || !element.animate) return;
+    const animation = element.animate([
+      { opacity: .75, transform: `translateY(${distance}px)` },
+      { opacity: 1, transform: 'none' }
+    ], { duration, delay, easing: 'ease-out', fill: 'backwards' });
+    activeMotion.add(animation);
+    animation.finished.then(
+      () => activeMotion.delete(animation),
+      () => activeMotion.delete(animation)
+    );
+  }
+
+  const observer = typeof IntersectionObserver === 'function'
+    ? new IntersectionObserver(entries => {
+        for (const { target, isIntersecting } of entries) {
+          if (!isIntersecting || revealed.has(target) || reducedMotion.matches ||
+              !currentPage?.contains(target)) continue;
+          revealed.add(target);
+          observer.unobserve(target);
+          const index = target.matches('.card, .theme')
+            ? Array.from(target.parentElement.children).indexOf(target) : 0;
+          animateArrival(target, 8, 420, Math.min(index, 2) * 55);
+        }
+      })
+    : null;
+
+  function observeSections() {
+    observer?.disconnect();
+    if (!observer || reducedMotion.matches || !currentPage) return;
+    const targets = currentPage.querySelectorAll('.case-section, .editor-note, .theme, .card');
+    for (const target of targets) {
+      if (revealed.has(target)) continue;
+      // Content at the destination is already visible as the page arrives.
+      if (target.getBoundingClientRect().top < window.innerHeight) revealed.add(target);
+      else observer.observe(target);
+    }
+  }
+
+  reducedMotion.addEventListener('change', () => {
+    if (reducedMotion.matches) activeMotion.forEach(animation => animation.cancel());
+    observeSections();
+  });
 
   function showPage(moveFocus = false) {
     let id;
@@ -1643,6 +1710,7 @@ window.BoundaryResearch = {
 
     const changed = currentPage !== page;
 
+    if (changed) activeMotion.forEach(animation => animation.cancel());
     pages.forEach(item => {
       item.hidden = item !== page;
     });
@@ -1680,7 +1748,7 @@ window.BoundaryResearch = {
 
       focusTarget.focus({ preventScroll: true });
 
-      if (changed || focusTarget === page) {
+      if (focusTarget === page) {
         window.scrollTo({ top: 0, behavior: 'instant' });
       } else {
         focusTarget.scrollIntoView({
@@ -1688,6 +1756,10 @@ window.BoundaryResearch = {
           behavior: 'instant'
         });
       }
+    }
+    if (changed) {
+      if (moveFocus && target === page) animateArrival(page, 10, 300);
+      observeSections();
     }
   }
 
