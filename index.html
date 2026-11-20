@@ -1248,7 +1248,191 @@ You can add these fields to any case:
 Keep the existing case IDs.
 All research fields are rendered as plain text.
 -->
-<script src="image-config.js"></script>
+<!-- EDIT IMAGE FILENAMES AND CAPTIONS HERE -->
+<script id="image-config">
+window.BoundaryImages = {
+  "mode": "production",
+  "comparisonThumbnails": true,
+  "slots": {
+    "home-hero": {
+      "filename": "llps-arquitectos-javier-callejas-sevilla-campus-extension.jpg",
+      "placement": "Homepage introduction",
+      "caption": "Architectural boundaries and institutional space.",
+      "altText": "A person stands in a bright corridor bordered by glass walls.",
+      "creator": null,
+      "originalSource": null,
+      "sourceURL": null,
+      "publicationYear": null,
+      "license": null,
+      "permissionStatus": "pending",
+      "creditsVerified": false,
+      "width": 2812,
+      "height": 2000,
+      "enabled": true
+    },
+    "case-tiff": {
+      "filename": "TIFF.jpg",
+      "placement": "TIFF case study, after Context",
+      "caption": "Toronto International Film Festival signage in Toronto.",
+      "altText": "Large red TIFF letters stand outside a cinema building beside a city street.",
+      "creator": null,
+      "originalSource": null,
+      "sourceURL": null,
+      "publicationYear": null,
+      "license": null,
+      "permissionStatus": "pending",
+      "creditsVerified": false,
+      "width": 1179,
+      "height": 663,
+      "enabled": true
+    },
+    "case-moderators": {
+      "filename": "Meta.jpg",
+      "placement": "Meta case study, after Context",
+      "caption": "Illustrative content moderation workstation.",
+      "altText": "A person at a desk examines graphs and information across several computer displays.",
+      "creator": null,
+      "originalSource": null,
+      "sourceURL": null,
+      "publicationYear": null,
+      "license": null,
+      "permissionStatus": "pending",
+      "creditsVerified": false,
+      "width": 2383,
+      "height": 1257,
+      "enabled": true
+    },
+    "case-journalists": {
+      "filename": "Journalism.jpg",
+      "placement": "Journalism case study, after Context",
+      "caption": "A journalist's workspace in a newsroom setting.",
+      "altText": "A person works at a laptop under desk lamps, with other workstations in the background.",
+      "creator": null,
+      "originalSource": null,
+      "sourceURL": null,
+      "publicationYear": null,
+      "license": null,
+      "permissionStatus": "pending",
+      "creditsVerified": false,
+      "width": 1200,
+      "height": 675,
+      "enabled": true
+    },
+    "case-archives": {
+      "filename": "Archival Work.jpg",
+      "placement": "Archival Work case study, after Context",
+      "caption": "Handling historical records in an archival setting.",
+      "altText": "White-gloved hands handle handwritten documents in an open archival box.",
+      "creator": null,
+      "originalSource": null,
+      "sourceURL": null,
+      "publicationYear": null,
+      "license": null,
+      "permissionStatus": "pending",
+      "creditsVerified": false,
+      "width": 1024,
+      "height": 683,
+      "enabled": true
+    },
+    "case-dispatchers": {
+      "filename": "Emergency Dispatchers.jpg",
+      "placement": "Emergency Dispatchers case study, after Context",
+      "caption": "Illustrative emergency communications centre.",
+      "altText": "A headset-wearing operator uses multiple monitors in a communications room displaying a 911 sign.",
+      "creator": null,
+      "originalSource": null,
+      "sourceURL": null,
+      "publicationYear": null,
+      "license": null,
+      "permissionStatus": "pending",
+      "creditsVerified": false,
+      "width": 1536,
+      "height": 1024,
+      "enabled": true
+    },
+    "case-investigators": {
+      "filename": "Human Trafficking Investigators.jpg",
+      "placement": "Human Trafficking Investigators case study, after Context",
+      "caption": "Police interview room.",
+      "altText": "An empty room contains a small table, three chairs, and recording equipment.",
+      "creator": null,
+      "originalSource": null,
+      "sourceURL": null,
+      "publicationYear": null,
+      "license": null,
+      "permissionStatus": "pending",
+      "creditsVerified": false,
+      "width": 1024,
+      "height": 683,
+      "enabled": true
+    },
+    "case-wnba": {
+      "filename": "WNBA.jpg",
+      "placement": "WNBA case study, after Context",
+      "caption": "Seattle Storm players warming up on a basketball court.",
+      "altText": "Basketball players in yellow warm-up shirts practise shooting beneath an arena basket.",
+      "creator": null,
+      "originalSource": null,
+      "sourceURL": null,
+      "publicationYear": null,
+      "license": null,
+      "permissionStatus": "pending",
+      "creditsVerified": false,
+      "width": 2048,
+      "height": 1365,
+      "enabled": true
+    },
+    "reflection-wide": {
+      "filename": "Reflection.jpg",
+      "placement": "Reflection introduction",
+      "caption": "An empty meeting space divided by glass.",
+      "altText": "Two empty chairs face a table against a glass divider.",
+      "creator": null,
+      "originalSource": null,
+      "sourceURL": null,
+      "publicationYear": null,
+      "license": null,
+      "permissionStatus": "pending",
+      "creditsVerified": false,
+      "width": 1200,
+      "height": 685,
+      "enabled": true
+    },
+    "tiff-response-document": {
+      "filename": "Employee Wellness Program.jpg",
+      "placement": "TIFF Institutional Response, supplementary illustration",
+      "caption": "Illustrative image of an employee wellness program.",
+      "altText": "A notebook labelled Employee Wellness Program lies on a desk with a laptop, coffee, pencils, and a tablet.",
+      "creator": null,
+      "originalSource": null,
+      "sourceURL": null,
+      "publicationYear": null,
+      "license": null,
+      "permissionStatus": "pending",
+      "creditsVerified": false,
+      "width": 2500,
+      "height": 1668,
+      "enabled": true
+    },
+    "meta-response-document": {
+      "filename": "Institutional Commitments.jpg",
+      "placement": "Meta Institutional Response, supplementary illustration",
+      "caption": "Illustrative image of an organizational report.",
+      "altText": "An open report displays circular charts and tables across two pages.",
+      "creator": null,
+      "originalSource": null,
+      "sourceURL": null,
+      "publicationYear": null,
+      "license": null,
+      "permissionStatus": "pending",
+      "creditsVerified": false,
+      "width": 800,
+      "height": 620,
+      "enabled": true
+    }
+  }
+};
+</script>
 <script>
 window.BoundaryResearch = {
   themes: [
@@ -1649,7 +1833,7 @@ window.BoundaryResearch = {
     const localPreview = location.protocol === 'file:' ||
       ['localhost', '127.0.0.1', '[::1]'].includes(location.hostname);
     const development = settings?.mode === 'development' && localPreview;
-    if (!development && image?.permissionStatus !== 'confirmed') return null;
+    if (!development && image?.enabled !== true) return null;
     const validSource = image && typeof image.filename === 'string' &&
       /^[^/\\:#?]+\.(?:avif|webp|png|jpe?g|gif)$/i.test(image.filename) &&
       typeof image.altText === 'string' && image.altText.trim();
