@@ -694,9 +694,8 @@ main > article > .page-heading > h1 {
 }
 /* Editorial image slots. Unfilled production slots create no DOM or spacing. */
 .editorial-image { margin: 24px 0; min-width: 0; }
-.editorial-image img { display: block; width: 100%; height: auto; }
-.editorial-image--case img { aspect-ratio: 3 / 2; object-fit: cover; }
-.editorial-image--wide img { aspect-ratio: 16 / 9; object-fit: cover; }
+.editorial-image__frame { width: 100%; }
+.editorial-image img { display: block; width: 100%; height: 100%; object-fit: contain; }
 .editorial-image--document { max-width: 520px; }
 .editorial-image figcaption { font-size: 13px; line-height: 1.6; color: var(--muted); margin-top: 10px; }
 .editorial-image figcaption span { display: block; }
@@ -705,7 +704,7 @@ main > article > .page-heading > h1 {
 .comparison-title { display: flex; gap: 16px; align-items: start; }
 .comparison-title h2 { flex: 1; min-width: 0; }
 .editorial-image--thumbnail { flex: 0 0 88px; width: 88px; margin: 0; }
-.editorial-image--thumbnail img { aspect-ratio: 3 / 2; object-fit: cover; }
+.editorial-image--thumbnail img { object-fit: contain; }
 .editorial-image--thumbnail .image-placeholder { font-size: 11px; padding: 5px; text-align: center; }
 @media (max-width: 420px) {
   .editorial-image--thumbnail { flex-basis: 64px; width: 64px; }
@@ -1089,6 +1088,11 @@ main > article > .page-heading > h1 {
     <section class="case-section">
       <h2>References &amp; Sources</h2>
       <div data-sources></div>
+    </section>
+
+    <section id="image-credits" class="case-section" aria-labelledby="image-credits-heading" hidden>
+      <h2 id="image-credits-heading">Image Credits</h2>
+      <div data-image-credits></div>
     </section>
 
     <section class="case-section" aria-labelledby="academic-supervision">
@@ -1630,15 +1634,25 @@ window.BoundaryResearch = {
     return element;
   }
 
-  // Shared component for all editorial photos, document excerpts, and thumbnails.
+  function imageCreditParts(image) {
+    if (image.permissionStatus !== 'confirmed' || image.creditsVerified !== true) return [];
+    return [image.creator, image.originalSource, image.publicationYear, image.license]
+      .filter(value => value !== null && value !== undefined &&
+        String(value).trim() && !/^pending verification$/i.test(String(value).trim()))
+      .map(String);
+  }
+
+  // Shared component for editorial photographs and supplementary illustrations.
   function editorialImage(slotId, variant, instanceId = 'image-' + slotId) {
     const settings = window.BoundaryImages;
-    const image = settings?.slots[slotId];
-    const development = settings?.mode === 'development';
-    // Filenames resolve beside index.html. Subdirectories and remote files are excluded.
-    const validSource = image && typeof image.src === 'string' &&
-      /^[^/\\:#?]+\.(?:avif|webp|png|jpe?g|gif)$/i.test(image.src) &&
-      typeof image.alt === 'string' && image.alt.trim();
+    const image = settings?.slots?.[slotId];
+    const localPreview = location.protocol === 'file:' ||
+      ['localhost', '127.0.0.1', '[::1]'].includes(location.hostname);
+    const development = settings?.mode === 'development' && localPreview;
+    if (!development && image?.permissionStatus !== 'confirmed') return null;
+    const validSource = image && typeof image.filename === 'string' &&
+      /^[^/\\:#?]+\.(?:avif|webp|png|jpe?g|gif)$/i.test(image.filename) &&
+      typeof image.altText === 'string' && image.altText.trim();
     if (!validSource && !development) return null;
     const figure = make('figure', '', 'editorial-image editorial-image--' + variant);
     figure.id = instanceId;
@@ -1651,10 +1665,13 @@ window.BoundaryResearch = {
       return figure;
     }
     const img = make('img');
-    img.alt = image.alt;
+    img.alt = image.altText;
     img.width = Number.isInteger(image.width) && image.width > 0 ? image.width : 1200;
     img.height = Number.isInteger(image.height) && image.height > 0 ? image.height : 800;
-    img.loading = slotId === 'home-hero' && variant === 'wide' ? 'eager' : 'lazy';
+    const critical = slotId === 'home-hero' && variant === 'wide' &&
+      (!location.hash || location.hash === '#home');
+    img.loading = critical ? 'eager' : 'lazy';
+    if (critical) img.fetchPriority = 'high';
     img.decoding = 'async';
     img.style.visibility = 'hidden';
     img.addEventListener('load', () => { img.style.visibility = 'visible'; });
@@ -1662,14 +1679,21 @@ window.BoundaryResearch = {
       if (development) placeholder();
       else figure.remove();
     });
-    figure.append(img);
-    if (variant !== 'thumbnail' && (image.caption || image.credit || image.sourceUrl)) {
+    const frame = make('div', '', 'editorial-image__frame');
+    frame.style.aspectRatio = variant === 'wide' ? '16 / 9'
+      : variant === 'document' ? `${img.width} / ${img.height}` : '3 / 2';
+    frame.append(img);
+    figure.append(frame);
+    const attribution = imageCreditParts(image);
+    const sourceURL = image.creditsVerified && image.permissionStatus === 'confirmed'
+      ? image.sourceURL : null;
+    if (variant !== 'thumbnail' && (image.caption || attribution.length || sourceURL)) {
       const caption = make('figcaption');
       if (image.caption) caption.append(make('span', image.caption));
-      if (image.credit) caption.append(make('span', image.credit));
-      if (image.sourceUrl) {
+      if (attribution.length) caption.append(make('span', attribution.join(' · ')));
+      if (sourceURL) {
         try {
-          const url = new URL(image.sourceUrl);
+          const url = new URL(sourceURL);
           if (url.protocol === 'https:' || url.protocol === 'http:') {
             const source = link('Image source', url.href);
             source.target = '_blank';
@@ -1683,7 +1707,8 @@ window.BoundaryResearch = {
       }
       figure.append(caption);
     }
-    img.src = encodeURIComponent(image.src);
+    const encodedFilename = encodeURIComponent(image.filename);
+    img.src = location.protocol === 'file:' ? encodedFilename : '/' + encodedFilename;
     return figure;
   }
 
@@ -1691,6 +1716,22 @@ window.BoundaryResearch = {
   if (heroImage) document.querySelector('.lead').append(heroImage);
   const reflectionImage = editorialImage('reflection-wide', 'wide');
   if (reflectionImage) document.querySelector('#reflection .page-heading').append(reflectionImage);
+
+  const creditContainer = document.querySelector('[data-image-credits]');
+  if (creditContainer) {
+    for (const image of Object.values(window.BoundaryImages?.slots || {})) {
+      const attribution = imageCreditParts(image);
+      const verifiedSource = image.permissionStatus === 'confirmed' && image.creditsVerified === true &&
+        image.sourceURL;
+      if (!attribution.length && !verifiedSource) continue;
+      const entry = make('section');
+      entry.append(make('h3', image.placement));
+      if (attribution.length) entry.append(make('p', attribution.join(' · ')));
+      if (verifiedSource) entry.append(sourceLink('Original image source', verifiedSource));
+      creditContainer.append(entry);
+      document.getElementById('image-credits').hidden = false;
+    }
+  }
 
   // Mobile section navigation
   const menu = document.querySelector('.menu');
