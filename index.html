@@ -891,9 +891,14 @@ main > article > .page-heading > h1 {
 
 <!-- EDIT COMPARISON INTRODUCTION HERE -->
 <section id="compare" aria-label="Cross-case Analysis" tabindex="-1">
-<div class="page-heading"><p class="eyebrow">A comparative lens</p><h1>Comparing institutional responsibility.</h1><div class="reading"><p>Workplace psychological risk does not take one form. Some workers encounter harassment because their roles make them publicly visible; others repeatedly encounter distressing material while performing work that remains largely unseen. Still others face emotional exposure as a routine condition of responding to crises or investigating exploitation.</p>
-<p>These seven cases are not directly equivalent. They differ in professional context, employment arrangements, available evidence, and the type of institutional response documented. The purpose of this comparison is therefore to examine <strong>how psychological risks are recognized, who can access protection, whether institutions seek to prevent harm, where responsibility lies, and what evidence of effectiveness is available</strong>.</p>
-<p><strong>Reading the comparison:</strong> A publicly announced policy is evidence of a commitment, not proof that it was accessible or effective. A report of harm identifies a concern, but does not alone establish the outcome of every institutional measure. Where the sources do not answer a question, the comparison marks the evidence as <strong>not established</strong>, rather than assuming that a protection does not exist.</p></div></div>
+<div class="page-heading">
+  <p class="eyebrow">A comparative lens</p>
+  <h1>Comparing institutional responsibility.</h1>
+  <div class="reading">
+    <p>This project uses comparative qualitative analysis of secondary sources, including academic research, organizational statements, investigative journalism, and professional guidance. It explores how occupational risks, employment arrangements, and institutional responses differ across seven working contexts.</p>
+    <p>Compare Recognition, Access, Prevention, Responsibility, and Effectiveness to examine how protections are described and experienced. An announced policy establishes a commitment, while access and outcomes require further evidence. <strong>Not established</strong> identifies a limit in the available sources. Each case’s Research Context explains its evidence basis and qualifications.</p>
+  </div>
+</div>
   <div class="compare-controls">
     <div>
       <label for="case-one">First case study</label>
@@ -1862,9 +1867,6 @@ window.BoundaryResearch = {
         )
       );
       panel.append(make('p', caseStudy.comparisonRisk));
-      const limitation = make('section', '', 'callout');
-      limitation.append(make('h3', 'Evidence limitation'), make('p', caseStudy.comparisonLimit));
-      panel.append(limitation);
 
       data.dimensions.forEach(dimension => {
         const row = make('section', '', 'dimension');
@@ -1881,11 +1883,25 @@ window.BoundaryResearch = {
         panel.append(row);
       });
 
-      const evidence = make('section', '', 'dimension');
-      evidence.append(make('h3', 'Evidence basis'), make('p', caseStudy.comparisonEvidence));
       const question = make('section', '', 'dimension');
       question.append(make('h3', 'Comparison question'), make('p', caseStudy.comparisonQuestion));
-      panel.append(evidence, question);
+      const researchContext = make('details');
+      const contextSummary = make('summary', 'Research Context');
+      contextSummary.setAttribute('aria-label', `Research Context for ${caseStudy.title}`);
+      const bibliographyGroup = {
+        moderators: 'meta',
+        investigators: 'trafficking',
+        journalists: 'journalism'
+      }[caseStudy.id] || caseStudy.id;
+      researchContext.append(
+        contextSummary,
+        make('h3', 'Source context'),
+        make('p', caseStudy.comparisonEvidence),
+        make('h3', 'Scope and qualifications'),
+        make('p', caseStudy.comparisonLimit),
+        link('Read the sources →', `#bibliography-${bibliographyGroup}`, 'text-link')
+      );
+      panel.append(question, researchContext);
       comparison.append(panel);
     });
 
