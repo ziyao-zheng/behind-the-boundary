@@ -692,6 +692,24 @@ main > article > .page-heading > h1 {
     to { opacity: 1; }
   }
 }
+/* Editorial image slots. Unfilled production slots create no DOM or spacing. */
+.editorial-image { margin: 24px 0; min-width: 0; }
+.editorial-image img { display: block; width: 100%; height: auto; }
+.editorial-image--case img { aspect-ratio: 3 / 2; object-fit: cover; }
+.editorial-image--wide img { aspect-ratio: 16 / 9; object-fit: cover; }
+.editorial-image--document { max-width: 520px; }
+.editorial-image figcaption { font-size: 13px; line-height: 1.6; color: var(--muted); margin-top: 10px; }
+.editorial-image figcaption span { display: block; }
+.image-placeholder { display: grid; place-items: center; aspect-ratio: 3 / 2; background: var(--wash); color: var(--muted); font-size: 13px; }
+.editorial-image--wide .image-placeholder { aspect-ratio: 16 / 9; }
+.comparison-title { display: flex; gap: 16px; align-items: start; }
+.comparison-title h2 { flex: 1; min-width: 0; }
+.editorial-image--thumbnail { flex: 0 0 88px; width: 88px; margin: 0; }
+.editorial-image--thumbnail img { aspect-ratio: 3 / 2; object-fit: cover; }
+.editorial-image--thumbnail .image-placeholder { font-size: 11px; padding: 5px; text-align: center; }
+@media (max-width: 420px) {
+  .editorial-image--thumbnail { flex-basis: 64px; width: 64px; }
+}
 </style>
 </head>
 
@@ -1211,7 +1229,7 @@ main > article > .page-heading > h1 {
       An independent study in arts management
     </p>
     <p>
-      Academic Supervision: <strong style="font-weight: 600">Dr. Nataleah Hunter-Young</strong><br>
+      Academic Supervision: <strong style="font-weight: 600">Dr. Nataleah Hunter-Young</strong> · Foundation edition<br>
       Evidence before conclusions.
     </p>
     <a href="#about">About the research &amp; sources ↗</a>
@@ -1254,6 +1272,7 @@ You can add these fields to any case:
 Keep the existing case IDs.
 All research fields are rendered as plain text.
 -->
+<script src="image-config.js"></script>
 <script>
 window.BoundaryResearch = {
   themes: [
@@ -1639,6 +1658,68 @@ window.BoundaryResearch = {
     return element;
   }
 
+  // Shared component for all editorial photos, document excerpts, and thumbnails.
+  function editorialImage(slotId, variant, instanceId = 'image-' + slotId) {
+    const settings = window.BoundaryImages;
+    const image = settings?.slots[slotId];
+    const development = settings?.mode === 'development';
+    // Filenames resolve beside index.html. Subdirectories and remote files are excluded.
+    const validSource = image && typeof image.src === 'string' &&
+      /^[^/\\:#?]+\.(?:avif|webp|png|jpe?g|gif)$/i.test(image.src) &&
+      typeof image.alt === 'string' && image.alt.trim();
+    if (!validSource && !development) return null;
+    const figure = make('figure', '', 'editorial-image editorial-image--' + variant);
+    figure.id = instanceId;
+    figure.setAttribute('data-image-slot', slotId);
+    function placeholder() {
+      figure.replaceChildren(make('div', 'Image to be added', 'image-placeholder'));
+    }
+    if (!validSource) {
+      placeholder();
+      return figure;
+    }
+    const img = make('img');
+    img.alt = image.alt;
+    img.width = Number.isInteger(image.width) && image.width > 0 ? image.width : 1200;
+    img.height = Number.isInteger(image.height) && image.height > 0 ? image.height : 800;
+    img.loading = slotId === 'home-hero' && variant === 'wide' ? 'eager' : 'lazy';
+    img.decoding = 'async';
+    img.style.visibility = 'hidden';
+    img.addEventListener('load', () => { img.style.visibility = 'visible'; });
+    img.addEventListener('error', () => {
+      if (development) placeholder();
+      else figure.remove();
+    });
+    figure.append(img);
+    if (variant !== 'thumbnail' && (image.caption || image.credit || image.sourceUrl)) {
+      const caption = make('figcaption');
+      if (image.caption) caption.append(make('span', image.caption));
+      if (image.credit) caption.append(make('span', image.credit));
+      if (image.sourceUrl) {
+        try {
+          const url = new URL(image.sourceUrl);
+          if (url.protocol === 'https:' || url.protocol === 'http:') {
+            const source = link('Image source', url.href);
+            source.target = '_blank';
+            source.rel = 'noopener noreferrer';
+            source.setAttribute('aria-label', 'Image source (opens in a new tab)');
+            caption.append(source);
+          }
+        } catch {
+          // An unavailable source URL does not prevent the caption from being read.
+        }
+      }
+      figure.append(caption);
+    }
+    img.src = encodeURIComponent(image.src);
+    return figure;
+  }
+
+  const heroImage = editorialImage('home-hero', 'wide');
+  if (heroImage) document.querySelector('.lead').append(heroImage);
+  const reflectionImage = editorialImage('reflection-wide', 'wide');
+  if (reflectionImage) document.querySelector('#reflection .page-heading').append(reflectionImage);
+
   // Mobile section navigation
   const menu = document.querySelector('.menu');
   const nav = document.querySelector('#navigation');
@@ -1852,6 +1933,12 @@ window.BoundaryResearch = {
       heading.id = `comparison-title-${index}`;
 
       panel.setAttribute('aria-labelledby', heading.id);
+      const titleGroup = make('div', '', 'comparison-title');
+      titleGroup.append(heading);
+      const thumbnail = window.BoundaryImages?.comparisonThumbnails
+        ? editorialImage('case-' + caseStudy.id, 'thumbnail', 'comparison-image-' + index)
+        : null;
+      if (thumbnail) titleGroup.append(thumbnail);
 
       panel.append(
         make(
@@ -1859,7 +1946,7 @@ window.BoundaryResearch = {
           `Case ${index + 1} / ${data.themes[caseStudy.theme].title}`,
           'tag'
         ),
-        heading,
+        titleGroup,
         link(
           'Open case study →',
           `#case-${caseStudy.id}`,
@@ -1960,6 +2047,15 @@ window.BoundaryResearch = {
       }
 
       body.append(section);
+      if (title === 'Context') {
+        const image = editorialImage('case-' + id, 'case');
+        if (image) body.append(image);
+      }
+      if (title === 'Institutional Response' && (id === 'tiff' || id === 'moderators')) {
+        const slot = id === 'tiff' ? 'tiff-response-document' : 'meta-response-document';
+        const image = editorialImage(slot, 'document');
+        if (image) section.append(image);
+      }
     });
 
     const bibliographyGroup = { moderators: 'meta', investigators: 'trafficking', journalists: 'journalism' }[id] || id;
