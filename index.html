@@ -763,7 +763,7 @@ main > article > .page-heading > h1 {
 
       <p class="byline">
         Arts management / Independent study<br>
-        Research in progress · Case evidence pending
+        Revised case studies · Research in progress
       </p>
 
       <a class="text-link" href="#about">
@@ -798,7 +798,7 @@ main > article > .page-heading > h1 {
         <span class="number">03 / Responsibility</span>
         <h3>
           <a href="#theme-2">
-            Professional Duty and Emotional Responsibility
+            Professional Duty and Institutional Responsibility
           </a>
         </h3>
         <p>
@@ -882,8 +882,8 @@ main > article > .page-heading > h1 {
   </div>
 
   <p class="pending">
-    All case research is pending. Theme placement is an organizing
-    lens, not a finding about a particular organization.
+    Read each case in its occupational context and explore its central
+    question about institutional responsibility.
   </p>
 
   <div data-cases></div>
@@ -1234,75 +1234,131 @@ All research fields are rendered as plain text.
 <script>
 window.BoundaryResearch = {
   themes: [
-    {
-      title: 'Public Visibility and Harassment',
-      description: 'Where public-facing work meets questions of exposure, visibility, and institutional protection.'
-    },
-    {
-      title: 'Hidden Labour and Traumatic Exposure',
-      description: 'Looking beyond the visible output to the people who handle difficult material.'
-    },
-    {
-      title: 'Professional Duty and Emotional Responsibility',
-      description: 'Examining the relationship between caring for others and being supported at work.'
-    }
-  ],
+  {
+    "title": "Public Visibility and Harassment",
+    "description": "Where public-facing work meets questions of exposure, visibility, and institutional protection."
+  },
+  {
+    "title": "Hidden Labour and Traumatic Exposure",
+    "description": "Looking beyond the visible output to the people who handle difficult material."
+  },
+  {
+    "title": "Professional Duty and Institutional Responsibility",
+    "description": "Examining the relationship between caring for others and being supported at work."
+  }
+],
 
-  sections: [
-    'Occupational Context',
-    'Documented Risks and Harm',
-    'Organizational Responses',
-    'Evidence and Limitations',
-    'Critical Reflection',
-    'References'
-  ],
+  sections: ["Context","Occupational Risks","Institutional Response","Critical Analysis","Key Question"],
 
   dimensions: [
-    'Occupational risks',
-    'Recognition of psychological harm',
-    'Organizational responses',
-    'Accessibility of protections',
-    'Preventive measures',
-    'Unresolved questions about institutional accountability'
-  ],
+  "Occupational risks",
+  "Recognition of psychological harm",
+  "Organizational responses",
+  "Accessibility of protections",
+  "Preventive measures",
+  "Unresolved questions about institutional accountability"
+],
 
   cases: [
-    {
-      id: 'tiff',
-      title: 'Toronto International Film Festival (TIFF)',
-      theme: 0
+  {
+    "id": "tiff",
+    "title": "Festival Programming: Toronto International Film Festival (TIFF)",
+    "theme": 0,
+    "sections": {
+      "Context": "At the 2024 Toronto International Film Festival, planned screenings of Anastasia Trofimova’s documentary *Russians at War* generated significant public controversy. Ukrainian officials, Canadian political figures, and members of the public criticized the film over its portrayal of Russia’s war against Ukraine. TIFF reported threats affecting festival operations and raised safety concerns involving staff, volunteers, filmmakers, and audiences. It temporarily paused the screenings, citing threats to public safety, before arranging additional screenings later in the festival.",
+      "Occupational Risks": "Public controversy surrounding a programming decision does not affect only the decision-makers. Frontline festival employees and volunteers may also be required to communicate institutional decisions, respond to criticism, and navigate heightened public tension. The case raises questions about the distribution of risk when cultural organizations defend artistic programming while relying on workers to implement those decisions. The available material documents organizational safety concerns; it does not establish the psychological outcomes experienced by individual TIFF workers during this incident.",
+      "Institutional Response": "TIFF’s immediate response included pausing the planned screenings and subsequently rescheduling them. Separately, a 2024 Diversio case study describes TIFF’s broader Holistic Wellness Program, including an increase in annual personal days from three to five, an increase in annual therapist benefits from $750 to $1,500, improvements to Employee Assistance Program access, wellness activities, and flexible working arrangements.",
+      "Critical Analysis": "These initiatives indicate that TIFF has publicly described measures supporting employee wellbeing. However, the available sources do not show whether these measures were activated specifically during the *Russians at War* controversy or whether temporary staff and volunteers were eligible. The case therefore highlights a distinction between general workplace-wellness commitments and protections available during a particular high-pressure public incident.",
+      "Key Question": "When an institution faces public controversy over its programming, how does it protect the employees and volunteers who must carry out and communicate its decisions?"
     },
-    {
-      id: 'journalists',
-      title: 'Journalists',
-      theme: 0
+    "summary": "At the 2024 Toronto International Film Festival, planned screenings of Anastasia Trofimova’s documentary Russians at War generated significant public controversy.",
+    "approach": "Incident-based and occupational context"
+  },
+  {
+    "id": "journalists",
+    "title": "Journalism: Online Harassment and Institutional Protection",
+    "theme": 0,
+    "sections": {
+      "Context": "Journalists can experience harassment, intimidation, and threats because of their reporting and public visibility. Online hostility may also extend into offline safety concerns. Canadian journalist Rachel Gilmore has publicly discussed harassment connected to her work, illustrating the potential overlap between professional visibility and personal vulnerability.",
+      "Occupational Risks": "Online abuse can impose emotional, reputational, and safety burdens on journalists. Its effects may differ according to gender, race, and other intersecting circumstances. The expectation that journalists tolerate criticism can also make it difficult to distinguish ordinary public scrutiny from conduct requiring institutional intervention.",
+      "Institutional Response": "Oscar Björkenfeldt’s research on Swedish journalism examines how managers respond to online harassment and identifies limitations in organizational recognition of its psychological and social effects. Physical threats may be easier for institutions to classify and address than ongoing harassment with less visible consequences. The International Women’s Media Foundation’s guide offers recommendations on newsroom risk assessment, incident reporting, digital security, and protection for staff and freelance journalists.",
+      "Critical Analysis": "The existence of professional guidance does not establish that it has been adopted consistently or that affected journalists can access meaningful support. Independent and freelance journalists may face additional challenges because they do not necessarily have access to an employer’s security, legal, or wellbeing resources. This case illustrates how the expectation of professional resilience can obscure the need for institutional and sector-wide responsibility.",
+      "Key Question": "Who is responsible for protecting journalists from work-related harassment when they operate outside the support structures of a conventional newsroom?"
     },
-    {
-      id: 'wnba',
-      title: 'WNBA Players',
-      theme: 0
+    "summary": "Journalists can experience harassment, intimidation, and threats because of their reporting and public visibility.",
+    "approach": "Occupation-based study"
+  },
+  {
+    "id": "wnba",
+    "title": "Professional Sports: WNBA",
+    "theme": 0,
+    "sections": {
+      "Context": "Professional athletes are expected to maintain public visibility through games, interviews, media coverage, and online engagement. For women athletes, this visibility may also bring discriminatory harassment and threats. In 2024, Chicago Sky player Chennedy Carter was confronted outside a team hotel following controversy over a foul involving Caitlin Clark. Team security intervened, demonstrating how public hostility can become a physical safety concern.",
+      "Occupational Risks": "Online abuse, intimidation, and public confrontation can affect athletes beyond the playing environment. Women athletes, particularly women of colour, may face gendered and racialized harassment. Reducing online participation may lower exposure in some circumstances, but it can also constrain athletes’ professional visibility and opportunities.",
+      "Institutional Response": "In 2025, the WNBA announced a league-wide initiative addressing harassment and threats, including enhanced security, social-media monitoring, conduct standards, and mental-health support. Reporting in 2026 also described continuing discussions involving league leadership and the players’ union about athlete protection.",
+      "Critical Analysis": "These measures show that the league has publicly recognized harassment as an issue requiring an organizational response. Their announcement alone, however, does not establish how consistently they are implemented, whether players find them effective, or whether they reduce the psychological consequences of abuse. The involvement of the players’ union also raises questions about how workers participate in shaping the protections intended for them.",
+      "Key Question": "Can a sports institution protect athletes from harassment without requiring them to withdraw from the public visibility central to their careers?"
     },
-    {
-      id: 'moderators',
-      title: 'Meta Content Moderators',
-      theme: 1
+    "summary": "Professional athletes are expected to maintain public visibility through games, interviews, media coverage, and online engagement.",
+    "approach": "Incident-based and occupational context"
+  },
+  {
+    "id": "moderators",
+    "title": "Commercial Content Moderation: Facebook / Meta",
+    "theme": 1,
+    "sections": {
+      "Context": "Commercial content moderators review user-generated material to determine whether it violates platform rules. Their decisions help govern what audiences encounter online, yet the work itself is often outsourced and largely invisible to platform users. Casey Newton’s 2019 investigation, *The Trauma Floor*, examined conditions at a Facebook moderation facility operated by Cognizant in Phoenix, Arizona.",
+      "Occupational Risks": "Moderators interviewed in the investigation described repeated exposure to disturbing material, demanding accuracy expectations, close performance monitoring, and limited opportunities for psychological recovery. The work presents a structural tension: reducing harmful content for users may require other workers to encounter that same material repeatedly.",
+      "Institutional Response": "In 2018, Facebook described training, coaching, onsite mental-health professionals, and counselling for content reviewers. Its 2019 statement, *Our Commitment to Our Content Reviewers*, outlined additional expectations for outsourcing partners, including wellness breaks, resilience support, site visits, partner performance reviews, and anonymous reporting channels. A 2021 Meta progress report stated that its commitment to psychological support and wellness resources for content reviewers had been implemented.",
+      "Critical Analysis": "These company statements document formal commitments and self-reported implementation, not independently verified effectiveness for every worker or contractor. Subsequent reporting described litigation by former moderator Daniel Motaung in Kenya in 2022, reported PTSD diagnoses among former moderators in Kenya in 2024, and allegations concerning working conditions among contractors in Ghana in 2025. A separate 2026 report concerning layoffs at Sama highlights employment insecurity in outsourced work; it should not be treated as direct evidence of the effectiveness of psychological support. Together, these sources raise questions about accountability across contracting relationships and the gap between written policies and workers’ reported experiences.",
+      "Key Question": "When a platform outsources the work of protecting its users, how far does its responsibility extend to the psychological wellbeing of the people performing that work?"
     },
-    {
-      id: 'archives',
-      title: 'Archival Workers',
-      theme: 1
+    "summary": "Commercial content moderators review user-generated material to determine whether it violates platform rules.",
+    "approach": "Incident-based and occupational context"
+  },
+  {
+    "id": "archives",
+    "title": "Archival Work: Trauma and Institutional Practice",
+    "theme": 1,
+    "sections": {
+      "Context": "Archivists preserve, describe, organize, and make records accessible. Some collections document discrimination, genocide, surveillance, hate crimes, and other forms of historical violence. Engaging with these records may be necessary for preservation and public access, but it can also create emotional demands for workers.",
+      "Occupational Risks": "Potentially distressing material can appear unexpectedly within ordinary archival workflows. An account shared in an r/Archivists discussion describes a worker encountering photographs documenting hate crimes among otherwise routine family photographs. This is an informal individual account rather than representative evidence of the profession as a whole, but it illustrates how difficult material may be encountered without advance warning.",
+      "Institutional Response": "The International Council on Archives’ 2023 report, *Understanding the International Landscape of Trauma and Archives*, identifies the importance of recognizing trauma in archival settings and recommends greater awareness, professional education, and trauma-informed approaches. Scholarship on trauma-informed archival practice also offers ways to consider organizational procedures, staff choice, training, and access to support.",
+      "Critical Analysis": "Archival work exposes a paradox in preventive care: before a collection can be labelled, described, or accompanied by a content notice, someone may need to examine the potentially distressing material. Protective systems therefore cannot depend entirely on advance warnings. They must also consider the working conditions, training, decision-making authority, and support available to the people who assess and describe records. The available sources support the need for institutional attention but do not demonstrate that every archive has adopted the recommended practices.",
+      "Key Question": "How can archives protect the workers who must encounter difficult records before protective descriptions or warnings can be created for others?"
     },
-    {
-      id: 'dispatchers',
-      title: 'Emergency Dispatchers',
-      theme: 2
+    "summary": "Archivists preserve, describe, organize, and make records accessible.",
+    "approach": "Occupation-based study"
+  },
+  {
+    "id": "dispatchers",
+    "title": "Emergency Dispatchers: Psychological Exposure at a Distance",
+    "theme": 2,
+    "sections": {
+      "Context": "Emergency dispatchers respond to urgent calls, interpret information under pressure, and coordinate assistance without necessarily being physically present at the emergency. Their work requires rapid judgment while they listen to distressing descriptions and emotionally intense communications.",
+      "Occupational Risks": "Repeated exposure to distressed callers, uncertainty about outcomes, demanding workloads, and limited recovery time may contribute to psychological strain. Dispatchers may also experience powerlessness when they cannot control events at the scene or learn whether their intervention was successful. These demands arise from routine occupational responsibilities rather than from an isolated public controversy.",
+      "Institutional Response": "Research including *Exploring the Psychological Health of Emergency Dispatch Centre Operatives* treats dispatchers’ psychological wellbeing as an occupational health concern. Possible organizational responses discussed in relation to these risks include access to psychological support, recovery opportunities, manageable workloads, and supervisors who recognize cumulative exposure to distressing situations.",
+      "Critical Analysis": "These potential responses should not be mistaken for measures documented as universally implemented or proven effective. The sources considered here establish reasons to examine dispatchers’ working conditions, but they do not provide a comprehensive assessment of a particular dispatch centre’s policies. The central organizational challenge is to provide meaningful support within a service that must remain continuously available.",
+      "Key Question": "How can emergency dispatch centres make psychological recovery possible when workers must remain ready to respond to the next crisis?"
     },
-    {
-      id: 'investigators',
-      title: 'Human-Trafficking Investigators',
-      theme: 2
-    }
-  ],
+    "summary": "Emergency dispatchers respond to urgent calls, interpret information under pressure, and coordinate assistance without necessarily being physically present at the emergency.",
+    "approach": "Occupation-based study"
+  },
+  {
+    "id": "investigators",
+    "title": "Human Trafficking Investigators: Trauma-Informed Work and Worker Care",
+    "theme": 2,
+    "sections": {
+      "Context": "Investigators working on human trafficking and sexual exploitation cases may engage with survivor testimony, investigative evidence, and accounts of abuse. Their responsibilities can require sustained attention to traumatic experiences while they gather evidence, identify perpetrators, and build trust with survivors.",
+      "Occupational Risks": "Repeated exposure to distressing material, demanding caseloads, and the emotional responsibilities of victim-centred investigations may create psychological strain. The need to act sensitively toward survivors can coexist with the investigators’ own need for recovery and institutional support.",
+      "Institutional Response": "The Department of Justice Canada’s *Interviews with Human Trafficking Investigators and Support Workers* describes the importance of specialized training and trauma-informed, victim-centred practice. In the report’s interview sample, participants had received some form of specialized trauma training. Related research by Mitchell and colleagues on professionals examining child sexual abuse material identifies associations between more favourable psychological outcomes and measures including wellness programs, breaks, peer support, and access to information about case outcomes.",
+      "Critical Analysis": "Trauma-informed investigative practice primarily addresses how professionals engage with and avoid further harming survivors; it should not automatically be treated as evidence that investigators themselves receive adequate psychological care. The Mitchell study concerns a related occupational group, not necessarily the same population as the human-trafficking investigators in the Justice Canada report. Read together, these sources prompt a question about whether institutions apply principles of care to both the people served and the workers providing that service.",
+      "Key Question": "How can investigative organizations support survivors through trauma-informed practice while also protecting the wellbeing of the professionals responsible for that work?"
+    },
+    "summary": "Investigators working on human trafficking and sexual exploitation cases may engage with survivor testimony, investigative evidence, and accounts of abuse.",
+    "approach": "Occupation-based study"
+  }
+],
 
   // Store each source here once. Use its ID in groups and case references.
   // Fields: id, beforeTitle, title, afterTitle, url, doi, type, review.
@@ -1685,18 +1741,7 @@ window.BoundaryResearch = {
 
     caseRoot.append(
       make('p', data.themes[caseStudy.theme].title, 'eyebrow'),
-      make('h1', caseStudy.title),
-      make(
-        'p',
-        caseStudy.summary || '[Research summary to be added]',
-        'intro'
-      ),
-      make(
-        'p',
-        caseStudy.approach ||
-        'Study approach: to be confirmed. This template supports both incident-based and occupation-based research.',
-        'pending'
-      )
+      make('h1', caseStudy.title)
     );
 
     const layout = make('div', '', 'case-layout section');
@@ -1713,53 +1758,23 @@ window.BoundaryResearch = {
       contents.append(link(title, `#${section.id}`));
       section.append(make('h2', title));
 
-      if (title === 'References') {
-        const group = { moderators: 'meta', investigators: 'trafficking' }[id] || id;
-        references(section, [...new Set([...(caseStudy.references || []), ...(data.sourceGroups[group] || [])])]);
-      } else {
-        const placeholder = title === 'Organizational Responses'
-          ? '[Organizational response: evidence pending]'
-          : '[Research summary to be added]';
-
-        section.append(make(
-          'p',
-          caseStudy.sections?.[title] || placeholder
-        ));
+      if (title === 'Key Question') section.className += ' callout';
+      const paragraphs = caseStudy.sections[title].split(/\n\s*\n/);
+      for (const text of paragraphs) {
+        const paragraph = make('p');
+        for (const part of text.split(/(\*[^*]+\*)/g)) {
+          paragraph.append(part.startsWith('*') && part.endsWith('*')
+            ? make('em', part.slice(1, -1))
+            : document.createTextNode(part));
+        }
+        section.append(paragraph);
       }
 
       body.append(section);
     });
 
-    const evidence = make('section', '', 'case-section');
-    evidence.append(make('h2', 'Commitments & evidence'));
-
-    const columns = make('div', '', 'evidence');
-
-    [
-      ['Documented organizational commitments', caseStudy.commitments],
-      ['Documented worker experiences', caseStudy.experiences],
-      ['Evidence limitations / unknown outcomes', caseStudy.limitations]
-    ].forEach(([title, text]) => {
-      const column = make('div');
-
-      column.append(
-        make('h3', title),
-        make('p', text || '[Evidence pending — source citation required]')
-      );
-
-      columns.append(column);
-    });
-
-    evidence.append(
-      columns,
-      make(
-        'p',
-        'Missing evidence does not establish that protections are absent. Claims, experiences, and interpretations require separate attribution.',
-        'pending'
-      )
-    );
-
-    body.append(evidence);
+    const bibliographyGroup = { moderators: 'meta', investigators: 'trafficking', journalists: 'journalism' }[id] || id;
+    body.append(link('Sources for this case →', `#bibliography-${bibliographyGroup}`, 'text-link'));
     layout.append(contents, body);
     caseRoot.append(layout);
   }
@@ -1785,6 +1800,7 @@ window.BoundaryResearch = {
     ['wnba', 'WNBA / Professional Sports']
   ]) {
     const group = make('details');
+    group.id = `bibliography-${key}`;
     group.append(make('summary', title));
     references(group, data.sourceGroups[key]);
     evidenceSources.append(group);
@@ -1872,6 +1888,7 @@ window.BoundaryResearch = {
     });
 
     currentPage = page;
+    if (id.startsWith('bibliography-') && target) target.open = true;
 
     const active = page.id.startsWith('case-')
       ? '#cases'
